@@ -101,7 +101,12 @@ class Business extends DataAccess
 		$this -> JSONEncode($this -> GetLastMeasure());
 	}
 
-	public function JSONEncode($string)
+	public function GetWantedValuesJSON()
+	{
+		$this -> JSONEncode($this -> GetWantedValues());
+	}
+
+	protected function JSONEncode($string)
 	{
 		return json_encode($string, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
 	}
@@ -109,13 +114,20 @@ class Business extends DataAccess
 	public function GetSettingsJSON()
 	{
 		$result = array();
+		$result['TimeSpans'] = array();
+		
 		foreach ($this -> GetTimeSpans() as $value)
 		{
 
 			$start = strtotime($value['Start']);
 			$end = strtotime($value['End']);
-			$result[] = [$value['Channel'],$start,$end];
+			$result['TimeSpans'][] = array(
+				$value['Channel'],
+				$start,
+				$end
+			);
 		}
+		$result['WantedValues'] = $this->GetWantedValues();
 		return $this -> JSONEncode($result);
 
 	}

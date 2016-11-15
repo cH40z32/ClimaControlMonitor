@@ -15,9 +15,9 @@
 			console.log(json);
 			var values = new Array();
 
-			for ( i = 0; i < json.length; i++)
+			for ( i = 0; i < json.TimeSpans.length; i++)
 			{
-				values.push([json[i][0], new Date(json[i][1] * 1000), new Date(json[i][2] * 1000)]);
+				values.push(new Array(json.TimeSpans[i][0], new Date(json.TimeSpans[i][1] * 1000), new Date(json.TimeSpans[i][2] * 1000)));
 			}
 
 			//var values = [['Illumination', new Date(0, 0, 0, 12, 0, 0), new Date(0, 0, 0, 13, 30, 0)], ['Illumination', new Date(0, 0, 0, 14, 0, 0), new Date(0, 0, 0, 15, 30, 0)], ['Illumination', new Date(0, 0, 0, 16, 0, 0), new Date(0, 0, 0, 17, 30, 0)], ['Ventilation', new Date(0, 0, 0, 12, 30, 0), new Date(0, 0, 0, 14, 0, 0)], ['Ventilation', new Date(0, 0, 0, 14, 30, 0), new Date(0, 0, 0, 16, 0, 0)], ['Ventilation', new Date(0, 0, 0, 16, 30, 0), new Date(0, 0, 0, 18, 0, 0)], ['ChannelA', new Date(0, 0, 0, 17, 0, 0), new Date(0, 0, 0, 17, 30, 0)], ['ChannelA', new Date(0, 0, 0, 18, 0, 0), new Date(0, 0, 0, 18, 30, 0)], ['ChannelA', new Date(0, 0, 0, 19, 0, 0), new Date(0, 0, 0, 19, 30, 0)], ['ChannelB', new Date(0, 0, 0, 12, 0, 0), new Date(0, 0, 0, 13, 30, 0)], ['ChannelB', new Date(0, 0, 0, 14, 0, 0), new Date(0, 0, 0, 15, 30, 0)], ['ChannelB', new Date(0, 0, 0, 16, 0, 0), new Date(0, 0, 0, 17, 30, 0)]];

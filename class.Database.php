@@ -88,7 +88,7 @@ class Database
 
 		if (!$this -> tableExists('WantedValues'))
 		{
-			$sql = "CREATE table TimeSpans(
+			$sql = "CREATE table WantedValues(
 						ID INT( 11 ) AUTO_INCREMENT PRIMARY KEY,
 						Channel text NOT NULL,
 						Timestamp datetime NOT NULL,
