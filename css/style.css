@@ -1,0 +1,57 @@
+body {
+font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+
+#current_temperature, #current_humidity {
+	text-align: center;
+	font-size: 2em;
+	float: left;
+}
+#wanted_temperature, #wanted_humidity {
+	text-align: center;
+	font-size: 1em;
+	float: left;
+}
+
+
+#filter_div {
+
+	width: 94%;
+	margin: 0 auto;
+	text-align: center;
+	height: 59px;
+
+}
+#dashboard_div {
+
+}
+
+
+
+
+#menu {
+	width: 100px;
+	position: absolute;
+	z-index: 10000;
+	display: none;
+}
+
+.circle-datepicker {
+	z-index: 10000;
+}
+.clockpicker {
+	display: inline;
+}
+ 
+.input-group b{
+	display:block;
+}
+
+#edit_menu, #new_menu,#interval_menu{
+	display:none;
+}
+
+#tabs{
+	display: none;
+}
