@@ -10,7 +10,7 @@
 			{
 				'packages' : ['corechart', 'controls']
 			});
-
+ 
 			google.charts.setOnLoadCallback(logic);
 			function logic()
 			{
