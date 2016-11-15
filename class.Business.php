@@ -114,10 +114,7 @@ class Business extends DataAccess
 
 			$start = strtotime($value['Start']);
 			$end = strtotime($value['End']);
-			$result[] = [
-			$value['Channel'],
-			$start,
-			$end];
+			$result[] = [$value['Channel'],$start,$end];
 		}
 		return $this -> JSONEncode($result);
 
