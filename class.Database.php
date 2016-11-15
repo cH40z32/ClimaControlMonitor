@@ -86,15 +86,24 @@ class Database
 			$this -> databaseHandle -> exec($sql);
 		}
 
-	}
+		if (!$this -> tableExists('WantedValues'))
+		{
+			$sql = "CREATE table TimeSpans(
+						ID INT( 11 ) AUTO_INCREMENT PRIMARY KEY,
+						Channel text NOT NULL,
+						Timestamp datetime NOT NULL,
+						Value double NOT NULL);";
 
+			$this -> databaseHandle -> exec($sql);
+		}
+
+	}
 
 	public function clear($table)
 	{
 		$sth = $this -> databaseHandle -> prepare("delete from $table");
 		$sth -> execute();
 	}
-
 
 }
 ?>

@@ -41,7 +41,7 @@ class DataAccess extends Database
 		/* Group values by the first column */
 		return $sth -> fetchAll(PDO::FETCH_ASSOC);
 	}
-	
+
 	public function GetLastMeasure()
 	{
 
@@ -81,6 +81,23 @@ class DataAccess extends Database
 
 	}
 
+	public function GetWantedValues()
+	{
+
+		$sth = $this -> databaseHandle -> prepare("
+							select 
+							Channel,
+							Timestamp,
+							Value
+							from WantedValues 
+							order by Channel desc,Timestamp desc");
+
+		$sth -> execute();
+		/* Group values by the first column */
+		return $sth -> fetchAll(PDO::FETCH_ASSOC);
+
+	}
+
 	public function SetTimeSpans($ranges)
 	{
 		$this -> clear("TimeSpans");
@@ -93,8 +110,6 @@ class DataAccess extends Database
 			$sth -> execute();
 		}
 	}
-
-
 
 	public function GetRange()
 	{
