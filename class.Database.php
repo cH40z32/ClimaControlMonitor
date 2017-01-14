@@ -11,6 +11,12 @@ class Database
 		$this -> createDataStructure();
 	}
 
+	public function LocalDate($utcDate)
+	{
+		return date('c',strtotime($utcDate));
+
+	}
+
 	public function TableExists($table)
 	{
 
@@ -43,6 +49,7 @@ class Database
 			$this -> DropTable("Measures");
 			$this -> DropTable("Settings");
 			$this -> DropTable("TimeSpans");
+			$this -> DropTable("WantedValues");
 		}
 		if (!$this -> tableExists('Measures'))
 		{

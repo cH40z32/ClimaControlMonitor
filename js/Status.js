@@ -3,26 +3,32 @@
 
 		$.fn.initStatus = function()
 		{
-			$('#tabs').hide();
-			$('#filter_div').hide();
-			$('#curve_chart').hide();
-
-			setInterval(drawTable, 3000);
-
+			var lastTimestamp = "";
+			drawTable();
 			function drawTable()
 			{
 
-				var json = JSON.parse($.ajax(
+				var response = $.ajax(
 				{
-					url : "AjaxController.php?action=GetLastMeasure",
+					url : "AjaxController.php?action=GetLastMeasure" + lastTimestamp,
 					dataType : "json",
-					async : false
-				}).responseText);
+					async : true
+				}).done(function(json)
+				{ 
+					if (json != "")
+					{
 
-				$('#current_temperature').html(json.Temperature + '&deg;');
-				$('#wanted_temperature').html(json.WantedTemperature + '&deg;');
-				$('#current_humidity').html(json.Humidity + '%');
-				$('#wanted_humidity').html(json.WantedHumidity + '%');
+						$('#current_temperature').html(json.Temperature + '&deg;');
+						$('#wanted_temperature').html(json.WantedTemperature + '&deg;');
+						$('#current_humidity').html(json.Humidity + '%');
+						$('#wanted_humidity').html(json.WantedHumidity + '%');
+						lastTimestamp = "&LastTimestamp=" + json.Timestamp;
+
+					}
+				}).always(function()
+				{
+					drawTable();
+				});
 
 			}
 

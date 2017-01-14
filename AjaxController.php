@@ -11,8 +11,7 @@ $database = "ClimaControlMonitor";
 
 $database = new Business($servername, $database, $username, $password);
 
-switch ($_REQUEST['action'])
-{
+switch ($_REQUEST['action']) {
 	case 'GetRange' :
 		echo json_encode($database -> GetRange());
 		break;
@@ -37,12 +36,22 @@ switch ($_REQUEST['action'])
 		break;
 
 	case 'GetLastMeasure' :
-		print($database -> GetLastMeasureJSON());
+		$lastTimestamp = isset($_REQUEST['LastTimestamp']) ? $_REQUEST['LastTimestamp'] : null;
+		print($database -> GetLastMeasureJSON($lastTimestamp));
+		break;
+
+	case 'SetWantedHumidity' :
+		$decoded = json_decode($_REQUEST['data']);
+		print($database -> SetWantedHumidity($decoded));
+		break;
+
+	case 'SetWantedTemperature' :
+		$decoded = json_decode($_REQUEST['data']);
+		print($database -> SetWantedTemperature($decoded));
 		break;
 
 	case 'AddMeasure' :
-		if (isset($_REQUEST['Temperature']) && isset($_REQUEST['WantedTemperature']) && isset($_REQUEST['Humidity']) && isset($_REQUEST['WantedHumidity']) && isset($_REQUEST['IsVantillating']) && isset($_REQUEST['IsIlluminating']) && isset($_REQUEST['IsChannelAActive']) && isset($_REQUEST['IsChannelBActive']))
-		{
+		if (isset($_REQUEST['Temperature']) && isset($_REQUEST['WantedTemperature']) && isset($_REQUEST['Humidity']) && isset($_REQUEST['WantedHumidity']) && isset($_REQUEST['IsVantillating']) && isset($_REQUEST['IsIlluminating']) && isset($_REQUEST['IsChannelAActive']) && isset($_REQUEST['IsChannelBActive'])) {
 			$database -> AddMeasure(doubleval($_REQUEST['Temperature']), doubleval($_REQUEST['Humidity']), doubleval($_REQUEST['WantedTemperature']), doubleval($_REQUEST['WantedHumidity']), intval($_REQUEST['IsVantillating']), intval($_REQUEST['IsIlluminating']), intval($_REQUEST['IsChannelAActive']), intval($_REQUEST['IsChannelBActive']));
 			echo "Success";
 		}

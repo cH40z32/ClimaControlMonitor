@@ -27,8 +27,6 @@ $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'overview';
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 
 		<link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
-
-		<link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
 	</head>
 	<body class="container-fluid">
 		<nav class="navbar navbar-default">

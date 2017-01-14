@@ -1,14 +1,11 @@
 <?php
 require_once ("class.DataAccess.php");
-class Business extends DataAccess
-{
-	function __construct($servername, $database, $username, $password)
-	{
+class Business extends DataAccess {
+	function __construct($servername, $database, $username, $password) {
 		parent::__construct($servername, $database, $username, $password);
 	}
 
-	public function GetMeasuresJSON($from, $to)
-	{
+	public function GetMeasuresJSON($from, $to) {
 		$result = $this -> GetMeasures($from, $to);
 
 		$json = '{"cols":[  
@@ -55,8 +52,7 @@ class Business extends DataAccess
 		//				  "role":"interval"
 		//
 		$distance = 250;
-		foreach ($result as $value)
-		{
+		foreach ($result as $value) {
 			$json .= '{"c":[  
 					 {  
 						"v":"Date(' . $value["Timestamp"] . ')"
@@ -96,49 +92,48 @@ class Business extends DataAccess
 
 	}
 
-	public function GetLastMeasures()
-	{
+	public function GetLastMeasures() {
 		$this -> JSONEncode($this -> GetLastMeasure());
 	}
 
-	public function GetWantedValuesJSON()
-	{
+	public function GetWantedValuesJSON() {
 		$this -> JSONEncode($this -> GetWantedValues());
 	}
 
-	protected function JSONEncode($string)
-	{
+	protected function JSONEncode($string) {
+		if ($string == null)
+			return "";
 		return json_encode($string, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
 	}
 
-	public function GetSettingsJSON()
-	{
+	public function GetSettingsJSON() {
 		$result = array();
 		$result['TimeSpans'] = array();
-		
-		foreach ($this -> GetTimeSpans() as $value)
-		{
+
+		foreach ($this -> GetTimeSpans() as $value) {
 
 			$start = strtotime($value['Start']);
 			$end = strtotime($value['End']);
-			$result['TimeSpans'][] = array(
-				$value['Channel'],
-				$start,
-				$end
-			);
+			$result['TimeSpans'][] = array($value['Channel'], $start, $end);
 		}
-		$result['WantedValues'] = $this->GetWantedValues();
+		$result['WantedHumidity'] = array();
+		foreach ($this -> GetWantedHumidity() as $value) {
+			$time = strtotime($value['Timestamp']);
+			$result['WantedHumidity'][] = array($time, $value['Value']);
+		}
+		$result['WantedTemperature'] = array();
+		foreach ($this -> GetWantedTemperature() as $value) {
+			$time = strtotime($value['Timestamp']);
+			$result['WantedTemperature'][] = array($time, $value['Value']);
+		}
 		return $this -> JSONEncode($result);
-
 	}
 
-	public function GetLastMeasureJSON()
-	{
-		return $this -> JSONEncode($this -> GetLastMeasure());
+	public function GetLastMeasureJSON($lasttimestamp = null) {
+		return $this -> JSONEncode($this -> GetLastMeasure($lasttimestamp));
 	}
 
-	public function GetCurrentTimeJSON()
-	{
+	public function GetCurrentTimeJSON() {
 		$response = array();
 
 		$response['day'] = date("j");
